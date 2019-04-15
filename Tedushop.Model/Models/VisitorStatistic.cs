@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Tedushop.Model.Models
 {
@@ -10,12 +12,12 @@ namespace Tedushop.Model.Models
     public class VisitorStatistic
     {
         [Key]
-        public Guid ID { get; set; }
+        public Guid ID { set; get; }
 
         [Required]
-        public DateTime VisitedDate { get; set; }
+        public DateTime VisitedDate { set; get; }
 
         [MaxLength(50)]
-        public string IPAddress { get; set; }
+        public string IPAddress { set; get; }
     }
 }
