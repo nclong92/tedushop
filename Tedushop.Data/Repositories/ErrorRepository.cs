@@ -8,14 +8,14 @@ using Tedushop.Model.Models;
 
 namespace Tedushop.Data.Repositories
 {
-    public interface IPostCategoryRepository : IRepository<PostCategory>
+    public interface IErrorRepository : IRepository<Error>
     {
     }
-    public class PostCategoryRepository: RepositoryBase<PostCategory>, IPostCategoryRepository
-    {
-        public PostCategoryRepository(IDbFactory dbFactory): base(dbFactory)
-        {
 
+    public class ErrorRepository : RepositoryBase<Error>, IErrorRepository
+    {
+        public ErrorRepository(IDbFactory dbFactory) : base(dbFactory)
+        {
         }
     }
 }
