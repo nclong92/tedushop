@@ -12,16 +12,22 @@ using Tedushop.Service;
 using System.Web.Mvc;
 using System.Web.Http;
 using Autofac.Integration.WebApi;
+using Microsoft.AspNet.Identity;
+using Tedushop.Model.Models;
+using Microsoft.Owin.Security;
+using System.Web;
+using Microsoft.Owin.Security.DataProtection;
 
 [assembly: OwinStartup(typeof(Tedushop.Web.App_Start.Startup))]
 
 namespace Tedushop.Web.App_Start
 {
-    public class Startup
+    public partial class Startup
     {
         public void Configuration(IAppBuilder app)
         {
             ConfigAutofac(app);
+            ConfigureAuth(app);
         }
 
         private void ConfigAutofac(IAppBuilder app)
@@ -36,6 +42,13 @@ namespace Tedushop.Web.App_Start
             builder.RegisterType<DbFactory>().As<IDbFactory>().InstancePerRequest();
 
             builder.RegisterType<TeduShopDbContext>().AsSelf().InstancePerRequest();
+
+            // Asp.net Identity
+            builder.RegisterType<ApplicationUserStore>().As<IUserStore<ApplicationUser>>().InstancePerRequest();
+            builder.RegisterType<ApplicationUserManager>().AsSelf().InstancePerRequest();
+            builder.RegisterType<ApplicationSignInManager>().AsSelf().InstancePerRequest();
+            builder.Register<IAuthenticationManager>(c => HttpContext.Current.GetOwinContext().Authentication).InstancePerRequest();
+            builder.Register<IDataProtectionProvider>(c => app.GetDataProtectionProvider()).InstancePerRequest();
 
             // Repositories
             builder.RegisterAssemblyTypes(typeof(PostCategoryRepository).Assembly)
