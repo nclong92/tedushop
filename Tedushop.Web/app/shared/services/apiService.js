@@ -7,6 +7,7 @@
         return {
             get: get,
             post: post,
+            put: put,
             del: del
         }
 

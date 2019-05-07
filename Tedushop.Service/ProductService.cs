@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Tedushop.Common;
 using Tedushop.Data.Infrastructure;
 using Tedushop.Data.Repositories;
 using Tedushop.Model.Models;
@@ -27,17 +28,50 @@ namespace Tedushop.Service
     public class ProductService : IProductService
     {
         private IProductRepository _productRepository;
+        private ITagRepository _tagRepository;
+        private IProductTagRepository _productTagRepository;
         private IUnitOfWork _unitOfWork;
 
-        public ProductService(IProductRepository productRepository, IUnitOfWork unitOfWork)
+        public ProductService(IProductRepository productRepository, ITagRepository tagRepository, IProductTagRepository productTagRepository, IUnitOfWork unitOfWork)
         {
             this._productRepository = productRepository;
+            this._tagRepository = tagRepository;
+            this._productTagRepository = productTagRepository;
             this._unitOfWork = unitOfWork;
         }
 
         public Product Add(Product Product)
         {
-            return _productRepository.Add(Product);
+            var product = _productRepository.Add(Product);
+            _unitOfWork.Commit();
+
+            if (!string.IsNullOrEmpty(Product.Tags))
+            {
+                string[] tags = Product.Tags.Split(',');
+
+                for (var i = 0; i < tags.Length; i++)
+                {
+                    var tagId = StringHelper.ToUnsignString(tags[i]);
+                    if (_tagRepository.Count(x => x.ID == tagId) == 0)
+                    {
+                        Tag tag = new Tag();
+                        tag.ID = tagId;
+                        tag.Name = tags[i];
+                        tag.Type = CommonConstants.ProductTag;
+
+                        _tagRepository.Add(tag);
+                    }
+
+                    ProductTag productTag = new ProductTag();
+                    productTag.ProductID = Product.ID;
+                    productTag.TagID = tagId;
+                    _productTagRepository.Add(productTag);
+                }
+
+                //_unitOfWork.Commit();
+            }
+
+            return product;
         }
 
         public Product Delete(int id)
@@ -62,7 +96,7 @@ namespace Tedushop.Service
             }
 
         }
-        
+
         public Product GetById(int id)
         {
             return _productRepository.GetSingleById(id);
@@ -76,6 +110,31 @@ namespace Tedushop.Service
         public void Update(Product Product)
         {
             _productRepository.Update(Product);
+
+            if (!string.IsNullOrEmpty(Product.Tags))
+            {
+                string[] tags = Product.Tags.Split(',');
+
+                for (var i = 0; i < tags.Length; i++)
+                {
+                    var tagId = StringHelper.ToUnsignString(tags[i]);
+                    if (_tagRepository.Count(x => x.ID == tagId) == 0)
+                    {
+                        Tag tag = new Tag();
+                        tag.ID = tagId;
+                        tag.Name = tags[i];
+                        tag.Type = CommonConstants.ProductTag;
+                        _tagRepository.Add(tag);
+                    }
+
+                    _productTagRepository.DeleteMulti(x => x.ProductID == Product.ID);
+
+                    ProductTag productTag = new ProductTag();
+                    productTag.ProductID = Product.ID;
+                    productTag.TagID = tagId;
+                    _productTagRepository.Add(productTag);
+                }
+            }
         }
     }
 }
