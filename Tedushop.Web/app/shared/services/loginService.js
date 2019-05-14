@@ -11,49 +11,34 @@
                 $http.post('/oauth/token', data, {
                     headers:
                         { 'Content-Type': 'application/x-www-form-urlencoded' }
-                }).then(
-                    successCallback((function (response) {
-                        userInfo = {
-                            accessToken: response.access_token,
-                            userName: userName
-                        };
-                        authenticationService.setTokenInfo(userInfo);
-                        authData.authenticationData.IsAuthenticated = true;
-                        authData.authenticationData.userName = userName;
-                        deferred.resolve(null);
-                    })),
-                    errorCallback((function (err, status) {
-                        authData.authenticationData.IsAuthenticated = false;
-                        authData.authenticationData.userName = "";
-                        deferred.resolve(err);
-                    }))
-                );
-
-                /*
-                .success(function (response) {
-                userInfo = {
-                    accessToken: response.access_token,
-                    userName: userName
-                };
-                authenticationService.setTokenInfo(userInfo);
-                authData.authenticationData.IsAuthenticated = true;
-                authData.authenticationData.userName = userName;
-                deferred.resolve(null);
-            })
-                .error(function (err, status) {
+                }).then(function successCallback(response) {
+                    console.log('Thanh cong');
+                    console.log(response);
+                    userInfo = {
+                        accessToken: response.data.access_token,
+                        userName: userName
+                    };
+                    authenticationService.setTokenInfo(userInfo);
+                    authData.authenticationData.IsAuthenticated = true;
+                    authData.authenticationData.userName = userName;
+                    deferred.resolve(null);
+                }, function errorCallback(response) {
+                    console.log('that bai');
+                    console.log(response.data.error);
+                    console.log(response);
                     authData.authenticationData.IsAuthenticated = false;
                     authData.authenticationData.userName = "";
-                    deferred.resolve(err);
+                    deferred.resolve(response);
                 });
-                */
-
                 return deferred.promise;
             }
 
             this.logOut = function () {
+                console.log('logout start');
                 authenticationService.removeToken();
                 authData.authenticationData.IsAuthenticated = false;
                 authData.authenticationData.userName = "";
+                console.log('logout end');
             }
         }]);
 })(angular.module('tedushop.common'));

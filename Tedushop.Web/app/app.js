@@ -1,5 +1,4 @@
-﻿
-(function () {
+﻿(function () {
     angular.module('tedushop',
         ['tedushop.products',
             'tedushop.product_categories',
@@ -13,7 +12,7 @@
         $stateProvider
             .state('base', {
                 url: '',
-                templateUrl: "/app/shared/views/baseView.html",
+                templateUrl: '/app/shared/views/baseView.html',
                 abstract: true
             }).state('login', {
                 url: "/login",
@@ -26,7 +25,6 @@
                 templateUrl: "/app/components/home/homeView.html",
                 controller: "homeController"
             });
-
         $urlRouterProvider.otherwise('/login');
     }
 
@@ -42,22 +40,22 @@
                     return $q.reject(rejection);
                 },
                 response: function (response) {
-                    if (response.status === "401") {
-                        $location.path('/login');
+                    if (response.status == "401") {
+                        $location.path('login');
+                        //$location.path('/login');
                     }
                     //the same response/modified/or a new one need to be returned.
                     return response;
                 },
                 responseError: function (rejection) {
 
-                    if (rejection.status === "401") {
-                        $location.path('/login');
+                    if (rejection.status == "401") {
+                        $location.path('login');
+                        //$location.path('/login');
                     }
                     return $q.reject(rejection);
                 }
             };
         });
     }
-
-
 })();

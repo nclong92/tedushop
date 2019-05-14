@@ -9,13 +9,16 @@
 
             $scope.loginSubmit = function () {
                 loginService.login($scope.loginData.userName, $scope.loginData.password).then(function (response) {
-                    if (response !== null && response.error !== undefined) {
+                    if (response != null && response.data.error == 'invalid_grant') {
                         notificationService.displayError("Đăng nhập không đúng.");
                     }
                     else {
                         var stateService = $injector.get('$state');
                         stateService.go('home');
                     }
+
+                        //var stateService = $injector.get('$state');
+                        //stateService.go('home');
                 });
             }
         }]);

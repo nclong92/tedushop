@@ -33,7 +33,7 @@ namespace Tedushop.Web.App_Start
                 AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(30),
                 AllowInsecureHttp = true
             });
-            app.UseOAuthBearerAuthentication(new Microsoft.Owin.Security.OAuth.OAuthBearerAuthenticationOptions());
+            app.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions());
 
             // Uncomment the following lines to enable logging in with third party login providers
             //app.UseMicrosoftAccountAuthentication(

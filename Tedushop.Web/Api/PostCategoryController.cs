@@ -14,6 +14,7 @@ using Tedushop.Web.Infrastructure.Extensions;
 namespace Tedushop.Web.Api
 {
     [RoutePrefix("api/postcategory")]
+    [Authorize]
     public class PostCategoryController : ApiControllerBase
     {
         private readonly IPostCategoryService _postCategoryService;
