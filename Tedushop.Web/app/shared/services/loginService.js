@@ -11,21 +11,42 @@
                 $http.post('/oauth/token', data, {
                     headers:
                         { 'Content-Type': 'application/x-www-form-urlencoded' }
-                }).success(function (response) {
-                    userInfo = {
-                        accessToken: response.access_token,
-                        userName: userName
-                    };
-                    authenticationService.setTokenInfo(userInfo);
-                    authData.authenticationData.IsAuthenticated = true;
-                    authData.authenticationData.userName = userName;
-                    deferred.resolve(null);
-                })
-                    .error(function (err, status) {
+                }).then(
+                    successCallback((function (response) {
+                        userInfo = {
+                            accessToken: response.access_token,
+                            userName: userName
+                        };
+                        authenticationService.setTokenInfo(userInfo);
+                        authData.authenticationData.IsAuthenticated = true;
+                        authData.authenticationData.userName = userName;
+                        deferred.resolve(null);
+                    })),
+                    errorCallback((function (err, status) {
                         authData.authenticationData.IsAuthenticated = false;
                         authData.authenticationData.userName = "";
                         deferred.resolve(err);
-                    });
+                    }))
+                );
+
+                /*
+                .success(function (response) {
+                userInfo = {
+                    accessToken: response.access_token,
+                    userName: userName
+                };
+                authenticationService.setTokenInfo(userInfo);
+                authData.authenticationData.IsAuthenticated = true;
+                authData.authenticationData.userName = userName;
+                deferred.resolve(null);
+            })
+                .error(function (err, status) {
+                    authData.authenticationData.IsAuthenticated = false;
+                    authData.authenticationData.userName = "";
+                    deferred.resolve(err);
+                });
+                */
+
                 return deferred.promise;
             }
 
