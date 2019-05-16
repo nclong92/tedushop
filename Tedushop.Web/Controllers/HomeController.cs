@@ -13,17 +13,35 @@ namespace Tedushop.Web.Controllers
     public class HomeController : Controller
     {
         IProductCategoryService _productCategoryService;
-        ICommonService _footerService;
+        IProductService _productService;
+        ICommonService _commonService;
+        
 
-        public HomeController(IProductCategoryService productCategoryService, ICommonService footerService)
+        public HomeController(IProductCategoryService productCategoryService, IProductService productService, ICommonService commonService)
         {
             this._productCategoryService = productCategoryService;
-            this._footerService = footerService;
+            this._productService = productService;
+            this._commonService = commonService;
         }
 
         public ActionResult Index()
         {
-            return View();
+            var slideModel = _commonService.GetSlides();
+
+            var slideViewModel = Mapper.Map<IEnumerable<Slide>, IEnumerable<SlideViewModel>>(slideModel);
+
+            var homeViewModel = new HomeViewModel();
+            homeViewModel.Slides = slideViewModel;
+
+            var lastestProductModel = _productService.GetLastest(3);
+            var lastestProductViewModel = Mapper.Map<IEnumerable<Product>, IEnumerable<ProductViewModel>>(lastestProductModel);
+            homeViewModel.LastestProducts = lastestProductViewModel;
+
+            var topSaleProductModel = _productService.GetHotProduct(3);
+            var topSaleProductViewModel = Mapper.Map<IEnumerable<Product>, IEnumerable<ProductViewModel>>(topSaleProductModel);
+            homeViewModel.TopSaleProducts = topSaleProductViewModel;
+
+            return View(homeViewModel);
         }
 
         public ActionResult About()
@@ -43,7 +61,7 @@ namespace Tedushop.Web.Controllers
         [ChildActionOnly]
         public ActionResult Footer()
         {
-            var model = _footerService.GetFooter();
+            var model = _commonService.GetFooter();
 
             var footerViewModel = Mapper.Map<Footer, FooterViewModel>(model);
 
