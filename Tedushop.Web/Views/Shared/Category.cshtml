@@ -7,21 +7,18 @@
 
             @foreach (var category in Model.Where(x => x.ParentID == null))
             {
-                var url = "/" + category.Alias + ".pc-" + category.ID + ".html";
+                var url = "/" + category.Alias + "-pc-" + category.ID;
 
                 var childCategories = Model.Where(x => x.ParentID == category.ID);
 
                 <li class="item1">
-                    <a href="@url">@*@category.Name @(childCategories.Count() > 0 ? "<img class=\"arrow-img\" src=\"~/Assets/client/images/arrow1.png\" alt=\"\" />" : "")*@</a>
-                    @*<img class="arrow-img" src="~/Assets/client/images/arrow1.png" alt="" />*@
-
                     @if (childCategories.Count() > 0)
                     {
-                        <a href="#">@category.Name <img class="arrow-img img-arrow" src="~/Assets/client/images/arrow1.png" alt="" /></a>
+                        <a href="@url">@category.Name <img class="arrow-img img-arrow" src="~/Assets/client/images/arrow1.png" alt="" /></a>
                         <ul class="cute">
                             @foreach (var childCategory in childCategories)
                             {
-                                var childUrl = "/" + childCategory.Alias + ".pc-" + childCategory.ID + ".html";
+                                var childUrl = "/" + childCategory.Alias + "-pc-" + childCategory.ID;
 
                                 <li class="subitem1"><a href="@childUrl">@childCategory.Name</a></li>
                             }
@@ -30,7 +27,7 @@
                     }
                     else
                     {
-                        <a href="#">@category.Name</a>
+                        <a href="@url">@category.Name</a>
                     }
 
                 </li>
@@ -39,7 +36,7 @@
         </ul>
     </div>
     <!--initiate accordion-->
-    <script type="text/javascript">
+    @*<script type="text/javascript">
         $(function () {
             var menu_ul = $('.menu > li > ul'),
                 menu_a = $('.menu > li > a');
@@ -57,7 +54,7 @@
             });
 
         });
-    </script>
+    </script>*@
     <div class=" chain-grid menu-chain">
         <a href="single.html"><img class="img-responsive chain" src="~/Assets/client/images/wat.jpg" alt=" " /></a>
         <div class="grid-chain-bottom chain-watch">

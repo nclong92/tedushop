@@ -40,6 +40,7 @@ namespace Tedushop.Web.Infrastructure.Extensions
             post.Content = postVm.Content;
             post.Image = postVm.Image;
             post.HomeFlag = postVm.HomeFlag;
+            post.HotFlag = postVm.HotFlag;
             post.ViewCount = postVm.ViewCount;
 
             post.CreatedBy = postVm.CreatedBy;
@@ -66,6 +67,7 @@ namespace Tedushop.Web.Infrastructure.Extensions
             product.Warranty = productViewModel.Warranty;
 
             product.HomeFlag = productViewModel.HomeFlag;
+            product.HotFlag = productViewModel.HotFlag;
             product.ViewCount = productViewModel.ViewCount;
 
             product.CreatedBy = productViewModel.CreatedBy;
