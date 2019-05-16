@@ -108,6 +108,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Tedushop.Common\Tedushop.Common.csproj">
+      <Project>{613D192C-6D84-4C5C-8DAB-851BDC535431}</Project>
+      <Name>Tedushop.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Tedushop.Model\Tedushop.Model.csproj">
       <Project>{9EF9944D-8DB2-40C8-AA21-537D4319E45B}</Project>
       <Name>Tedushop.Model</Name>
