@@ -78,6 +78,7 @@ namespace Tedushop.Web.Infrastructure.Extensions
             product.MetaDescription = productViewModel.MetaDescription;
             product.Status = productViewModel.Status;
             product.Tags = productViewModel.Tags;
+            product.Quantity = productViewModel.Quantity;
         }
 
         public static void UpdateProductCategory(this ProductCategory productCategory, ProductCategoryViewModel productCategoryVm)

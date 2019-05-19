@@ -46,6 +46,7 @@ namespace Tedushop.Web.Models
         public bool Status { set; get; }
 
         public string Tags { get; set; }
+        public int Quantity { get; set; }
 
         public virtual ProductCategoryViewModel ProductCategory { set; get; }
     }

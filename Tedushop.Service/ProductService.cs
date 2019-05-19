@@ -28,6 +28,7 @@ namespace Tedushop.Service
         Product GetById(int id);
         void Save();
         IEnumerable<string> GetListProductByName(string keyword);
+        IEnumerable<Product> GetRelatedProducts(int id, int top);
     }
 
     public class ProductService : IProductService
@@ -146,6 +147,12 @@ namespace Tedushop.Service
         public IEnumerable<string> GetListProductByName(string keyword)
         {
             return _productRepository.GetMulti(x => x.Status && x.Name.Contains(keyword)).Select(x=>x.Name);
+        }
+
+        public IEnumerable<Product> GetRelatedProducts(int id, int top)
+        {
+            var product = _productRepository.GetSingleById(id);
+            return _productRepository.GetMulti(x => x.Status && x.ID != id && x.CategoryID == product.CategoryID).OrderByDescending(x => x.CreatedDate).Take(top);
         }
 
         public void Save()
