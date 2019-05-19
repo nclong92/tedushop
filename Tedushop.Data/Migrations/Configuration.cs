@@ -19,7 +19,7 @@
 
         protected override void Seed(Tedushop.Data.TeduShopDbContext context)
         {
-            //CreateProductCategorySample(context);
+            CreateProductCategorySample(context);
             //CreateApplicationUser(context);
             CreateFooter(context);
             CreateSlide(context);
