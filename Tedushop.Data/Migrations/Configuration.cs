@@ -24,6 +24,7 @@
             //CreateFooter(context);
             //CreateSlide(context);
             CreatePage(context);
+            CreateContactDetail(context);
 
         }
 
@@ -198,6 +199,26 @@
                 };
 
                 context.Pages.Add(page);
+                context.SaveChanges();
+            }
+        }
+
+        private void CreateContactDetail(TeduShopDbContext context)
+        {
+            if (context.ContactDetails.Count() == 0)
+            {
+                var contactDetail = new ContactDetail()
+                {
+                    Name = "Shop thời trang",
+                    Address = "Dư Dụ, Thanh Oai, Hà Nội",
+                    Phone = "12345678",
+                    Email = "nclong92@gmail.com",
+                    Lat = 20.8693044,
+                    Lng = 105.8211387,
+                    Status = true
+                };
+
+                context.ContactDetails.Add(contactDetail);
                 context.SaveChanges();
             }
         }

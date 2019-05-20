@@ -30,6 +30,26 @@ namespace TeduShop.Web
             );
 
             routes.MapRoute(
+                name: "Contact",
+                url: "lien-he",
+                defaults: new { controller = "Contact", action = "Index", id = UrlParameter.Optional },
+                namespaces: new string[]
+                {
+                    "Tedushop.Web.Controllers"
+                }
+            );
+
+            //routes.MapRoute(
+            //    name: "Page",
+            //    url: "lien-he",
+            //    defaults: new { controller = "Contact", action = "Index", id = UrlParameter.Optional },
+            //    namespaces: new string[]
+            //    {
+            //        "Tedushop.Web.Controllers"
+            //    }
+            //);
+
+            routes.MapRoute(
                 name: "Page",
                 url: "trang/{alias}",
                 defaults: new { controller = "Page", action = "Index", alias = UrlParameter.Optional },

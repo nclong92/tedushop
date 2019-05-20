@@ -1,0 +1,38 @@
+﻿@model Tedushop.Web.Models.ContactDetailViewModel
+
+@{
+    ViewBag.Title = "Liên hệ";
+    Layout = "~/Views/Shared/Layouts.cshtml";
+}
+
+<div class="main">
+    <div class="reservation_top">
+        <div class=" contact_right">
+            <h3>Thông tin liên hệ</h3>
+            <address class="address">
+                <p>@Model.Address</p>
+                <dl>
+                    <dt> </dt>
+                    <dd>Điện thoại:<span> @Model.Phone</span></dd>
+                    <dd>E-mail:&nbsp; <a href="mailto:@(Model.Email)">@(Model.Email)</a></dd>
+                </dl>
+            </address>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+    <div class="reservation_top">
+        <div class=" contact_right">
+            
+            <div class="contact-form">
+                <form method="post" action="contact-post.html">
+                    <input type="text" class="textbox" value="Name" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Name';}">
+                    <input type="text" class="textbox" value="Email" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Email';}">
+                    <textarea value="Message" onfocus="this.value= '';" onblur="if (this.value == '') {this.value = 'Message';}">Message</textarea>
+                    <input type="submit" value="Send">
+                    <div class="clearfix"> </div>
+                </form>
+                
+            </div>
+        </div>
+    </div>
+</div>
