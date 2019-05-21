@@ -213,8 +213,8 @@
                     Address = "Dư Dụ, Thanh Oai, Hà Nội",
                     Phone = "12345678",
                     Email = "nclong92@gmail.com",
-                    Lat = 20.8693044,
-                    Lng = 105.8211387,
+                    Lat = 20.8693464,
+                    Lng = 105.82042,
                     Status = true
                 };
 
