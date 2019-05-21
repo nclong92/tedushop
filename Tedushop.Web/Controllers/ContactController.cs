@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Tedushop.Common;
 using Tedushop.Model.Models;
 using Tedushop.Service;
 using Tedushop.Web.Infrastructure.Extensions;
@@ -44,6 +45,15 @@ namespace Tedushop.Web.Controllers
                 _feedBackSerive.Save();
 
                 ViewData["SuccessMsg"] = "Gửi phản hồi thành công";
+
+                string content = System.IO.File.ReadAllText(Server.MapPath("/Assets/client/templates/contact_template.html"));
+                content = content.Replace("{{Name}}", feedBackViewModel.Name);
+                content = content.Replace("{{Email}}", feedBackViewModel.Email);
+                content = content.Replace("{{Message}}", feedBackViewModel.Message);
+
+                var adminEmail = ConfigHelper.GetByKey("AdminEmail");
+                MailHelper.SendMail(adminEmail, "Thông tin liên hệ từ website", content);
+
                 feedBackViewModel.Name = "";
                 feedBackViewModel.Email = "";
                 feedBackViewModel.Message = "";
