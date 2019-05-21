@@ -1,4 +1,5 @@
 ﻿@model Tedushop.Web.Models.FeedBackViewModel
+@using BotDetect.Web.Mvc;
 
 @{
     ViewBag.Title = "Liên hệ";
@@ -9,6 +10,9 @@
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAk3Eeu6MXm1Y6qil2hO6j89kckY5nnSTo"></script>
     <script src="~/Assets/client/js/controllers/contact.js"></script>
 }
+
+<link href="@BotDetect.Web.CaptchaUrls.Absolute.LayoutStyleSheetUrl"
+      rel="stylesheet" type="text/css" />
 
 <style>
     /*html, body {
@@ -67,6 +71,13 @@
                     @Html.TextBoxFor(model => model.Name, new { @class = "textbox" });
                     @Html.TextBoxFor(model => model.Email, new { @class = "textbox" });
                     @Html.TextAreaFor(model => model.Message);
+
+                    MvcCaptcha exampleCaptcha = new MvcCaptcha("ExampleCaptcha");
+                    exampleCaptcha.UserInputID = "CaptchaCode";
+
+                    @Html.Captcha(exampleCaptcha)
+                    @Html.TextBox("CaptchaCode")
+
                     <input type="submit" value="Gửi" />
                     <div class="clearfix"></div>
                 }

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using BotDetect.Web.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,6 +32,8 @@ namespace Tedushop.Web.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
+        [CaptchaValidation("CaptchaCode", "ExampleCaptcha", "Mã xác nhận không đúng")]
         public ActionResult SendFeedBack(FeedBackViewModel feedBackViewModel)
         {
             if (ModelState.IsValid)
@@ -45,6 +48,10 @@ namespace Tedushop.Web.Controllers
                 feedBackViewModel.Email = "";
                 feedBackViewModel.Message = "";
 
+            }
+            else
+            {
+                MvcCaptcha.ResetCaptcha("contactCaptcha");
             }
 
             feedBackViewModel.ContactDetailViewModel = GetContactDetail();
