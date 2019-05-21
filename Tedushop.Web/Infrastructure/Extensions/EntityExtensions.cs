@@ -101,5 +101,13 @@ namespace Tedushop.Web.Infrastructure.Extensions
             productCategory.Status = productCategoryVm.Status;
 
         }
+        public static void UpdateFeedBack(this FeedBack feedBack, FeedBackViewModel feedBackViewModel)
+        {
+            feedBack.Name = feedBackViewModel.Name;
+            feedBack.Email = feedBackViewModel.Email;
+            feedBack.Message = feedBackViewModel.Message;
+            feedBack.CreatedDate = DateTime.Now;
+            feedBack.Status = feedBackViewModel.Status;
+        }
     }
 }

@@ -21,6 +21,7 @@ namespace TeduShop.Web.Mappings
                 cfg.CreateMap<Slide, SlideViewModel>();
                 cfg.CreateMap<Page, PageViewModel>();
                 cfg.CreateMap<ContactDetail, ContactDetailViewModel>();
+                cfg.CreateMap<FeedBack, FeedBackViewModel>();
             });
 
 

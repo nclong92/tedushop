@@ -37,6 +37,7 @@ namespace Tedushop.Data
 
         public DbSet<VisitorStatistic> VisitorStatistics { set; get; }
         public DbSet<ContactDetail> ContactDetails { set; get; }
+        public DbSet<FeedBack> FeedBacks { set; get; }
 
         public DbSet<Error> Errors { set; get; }
 
