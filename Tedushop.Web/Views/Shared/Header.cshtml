@@ -1,4 +1,6 @@
-﻿<div class="header">
+﻿@using Microsoft.AspNet.Identity;
+
+<div class="header">
     <div class="top-header">
         <div class="container">
             <div class="top-header-left">
@@ -52,17 +54,32 @@
                         <input type="text" id="txtKeyword" name="keyword" placeholder="Từ khóa">
                         <input type="submit" value="Tìm kiếm" id="btnSearch">
                     </form>
-                    
+
 
                 </div>
                 <div class="clearfix"> </div>
             </div>
             <div class="header-bottom-right">
-                <div class="account"><a href="login.html"><span> </span>TÀI KHOẢN CỦA BẠN</a></div>
-                <ul class="login">
-                    <li><a href="/dang-nhap"><span> </span>ĐĂNG NHẬP</a></li> |
-                    <li><a href="/dang-ky">ĐĂNG KÝ</a></li>
-                </ul>
+                @using (Html.BeginForm("LogOut", "Account", FormMethod.Post))
+                {
+                    if (Request.IsAuthenticated)
+                    {
+                        @Html.AntiForgeryToken()
+
+                        <ul class="login">
+                            <li><a href="/tai-khoan"><span> </span>Xin chào: @User.Identity.GetUserName()</a></li>
+                            <li><button type="submit">Thoát</button></li>
+                        </ul>
+                    }
+                    else
+                    {
+                        <ul class="login">
+                            <li><a href="/dang-nhap"><span> </span>ĐĂNG NHẬP</a></li> |
+                            <li><a href="/dang-ky">ĐĂNG KÝ</a></li>
+                        </ul>
+                    }
+                }
+
                 <div class="cart"><a href="/gio-hang"><span> </span>GIỎ HÀNG</a></div>
                 <div class="clearfix"> </div>
             </div>

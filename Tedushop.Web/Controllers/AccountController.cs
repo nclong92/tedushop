@@ -11,6 +11,9 @@ using Tedushop.Model.Models;
 using System.Threading.Tasks;
 using BotDetect.Web.Mvc;
 using Tedushop.Common;
+using Microsoft.Owin.Security;
+using Microsoft.AspNet.Identity;
+using System.Security.Claims;
 
 namespace Tedushop.Web.Controllers
 {
@@ -51,6 +54,50 @@ namespace Tedushop.Web.Controllers
             {
                 _userManager = value;
             }
+        }
+
+        [HttpGet]
+        public ActionResult Login(string returnUrl)
+        {
+            ViewBag.ReturnUrl = returnUrl;
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Login(LoginViewModel loginViewModel, string returnUrl)
+        {
+            if (ModelState.IsValid)
+            {
+                ApplicationUser user = await UserManager.FindAsync(loginViewModel.UserName, loginViewModel.Password);
+
+                if(user!= null)
+                {
+                    IAuthenticationManager authenticationManager = HttpContext.GetOwinContext().Authentication;
+                    authenticationManager.SignOut(DefaultAuthenticationTypes.ExternalCookie);
+
+                    ClaimsIdentity identity = _userManager.CreateIdentity(user, DefaultAuthenticationTypes.ApplicationCookie);
+                    AuthenticationProperties props = new AuthenticationProperties();
+                    props.IsPersistent = loginViewModel.RememberMe;
+                    authenticationManager.SignIn(props, identity);
+
+                    if (Url.IsLocalUrl(returnUrl))
+                    {
+                        return Redirect(returnUrl);
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Tài khoản hoặc mật khẩu không đúng.");
+                }
+            }
+
+
+            ViewBag.ReturnUrl = returnUrl;
+            return View();
         }
 
         [HttpGet]
@@ -109,6 +156,17 @@ namespace Tedushop.Web.Controllers
             }
 
             return View();
+        }
+
+        [HttpPost]
+        [Authorize]
+        [ValidateAntiForgeryToken]
+        public ActionResult LogOut()
+        {
+            IAuthenticationManager authenticationManager = HttpContext.GetOwinContext().Authentication;
+            authenticationManager.SignOut();
+
+            return RedirectToAction("Index", "Home");
         }
     }
 }
