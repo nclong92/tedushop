@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoMapper;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -108,6 +109,22 @@ namespace Tedushop.Web.Infrastructure.Extensions
             feedBack.Message = feedBackViewModel.Message;
             feedBack.CreatedDate = DateTime.Now;
             feedBack.Status = feedBackViewModel.Status;
+        }
+
+        public static void UpdateOrder(this Order order, OrderViewModel orderViewModel)
+        {
+            order.CustomerName = orderViewModel.CustomerName;
+            order.CustomerAddress = orderViewModel.CustomerAddress;
+            order.CustomerEmail = orderViewModel.CustomerEmail;
+            order.CustomerMobile = orderViewModel.CustomerMobile;
+            order.CustomerMessage = orderViewModel.CustomerMessage;
+            order.PaymentMethod = orderViewModel.PaymentMethod;
+            order.CreatedDate = DateTime.Now;
+            order.CreatedBy = orderViewModel.CreatedBy;
+            order.Status = orderViewModel.Status;
+            order.CustomerId = orderViewModel.CustomerId;
+
+            order.OrderDetails = Mapper.Map<IEnumerable<OrderDetailViewModel>, IEnumerable<OrderDetail>>(orderViewModel.OrderDetails);
         }
     }
 }
