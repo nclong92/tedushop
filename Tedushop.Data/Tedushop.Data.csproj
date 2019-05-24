@@ -101,6 +101,10 @@
     <Compile Include="Migrations\201905240220428_AddCustomerId.Designer.cs">
       <DependentUpon>201905240220428_AddCustomerId.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201905240936045_RenameTableIdentity.cs" />
+    <Compile Include="Migrations\201905240936045_RenameTableIdentity.Designer.cs">
+      <DependentUpon>201905240936045_RenameTableIdentity.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ContactDetailRepository.cs" />
@@ -169,6 +173,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201905240220428_AddCustomerId.resx">
       <DependentUpon>201905240220428_AddCustomerId.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905240936045_RenameTableIdentity.resx">
+      <DependentUpon>201905240936045_RenameTableIdentity.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
