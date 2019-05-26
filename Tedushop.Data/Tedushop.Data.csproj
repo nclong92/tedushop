@@ -105,8 +105,16 @@
     <Compile Include="Migrations\201905240936045_RenameTableIdentity.Designer.cs">
       <DependentUpon>201905240936045_RenameTableIdentity.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201905250150101_AddGroupUser.cs" />
+    <Compile Include="Migrations\201905250150101_AddGroupUser.Designer.cs">
+      <DependentUpon>201905250150101_AddGroupUser.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\ApplicationGroupRepository.cs" />
+    <Compile Include="Repositories\ApplicationRoleGroupRepository.cs" />
+    <Compile Include="Repositories\ApplicationRoleRepository.cs" />
+    <Compile Include="Repositories\ApplicationUserGroupRepository.cs" />
     <Compile Include="Repositories\ContactDetailRepository.cs" />
     <Compile Include="Repositories\ErrorRepository.cs" />
     <Compile Include="Repositories\FeedBackRepository.cs" />
@@ -176,6 +184,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201905240936045_RenameTableIdentity.resx">
       <DependentUpon>201905240936045_RenameTableIdentity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905250150101_AddGroupUser.resx">
+      <DependentUpon>201905250150101_AddGroupUser.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

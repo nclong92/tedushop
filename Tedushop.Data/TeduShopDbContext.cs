@@ -39,6 +39,12 @@ namespace Tedushop.Data
         public DbSet<ContactDetail> ContactDetails { set; get; }
         public DbSet<FeedBack> FeedBacks { set; get; }
 
+        public DbSet<ApplicationGroup> ApplicationGroups { get; set; }
+        public DbSet<ApplicationRole> ApplicationRoles { get; set; }
+        public DbSet<ApplicationRoleGroup> ApplicationRoleGroups { get; set; }
+        public DbSet<ApplicationUserGroup> ApplicationUserGroups { get; set; }
+
+
         public DbSet<Error> Errors { set; get; }
 
         public static TeduShopDbContext Create()
